@@ -28,6 +28,8 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
+        {% block side_bar %}
+
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -147,11 +149,15 @@
         </ul>
         <!-- End of Sidebar -->
 
+        {% endblock side_bar %}
+
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
             <div id="content">
+
+                {% block top_bar %}
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -357,6 +363,10 @@
                 </nav>
                 <!-- End of Topbar -->
 
+                {% endblock top_bar %}
+
+                {% block page_content %}
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
@@ -366,8 +376,12 @@
                 </div>
                 <!-- /.container-fluid -->
 
+                {% endblock page_content %}
+
             </div>
             <!-- End of Main Content -->
+
+            {% block footer %}
 
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
@@ -379,11 +393,18 @@
             </footer>
             <!-- End of Footer -->
 
+            {% endblock footer %}
+
         </div>
         <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
+
+
+    {% block login %}
+
+    {% endblock login %}
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -419,6 +440,10 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{% static 'base/js/sb-admin-2.min.js' %}" ></script>
+
+    {% block js_page %}
+
+    {% endblock js_page %}
 
 </body>
 
