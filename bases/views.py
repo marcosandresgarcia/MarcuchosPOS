@@ -6,4 +6,4 @@ from django.views import generic
 
 class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'home/home.html'
-    login_url = '/admin'
+    login_url = 'bases:login'
