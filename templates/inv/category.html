@@ -41,11 +41,11 @@
                         <tr>
                             <td>{{ item.id }}</td>
                             <td>{{ item.name }}</td>
-                            <td>{{ item.status }}</td>
-                            <td>{{ item.created_at }}</td>
-                            <td>{{ item.updated_at|date:"d/m/Y H:i:s" }}</td>
+                            <td>{{ item.state|yesno:"Activo,Inactivo" }}</td>
+                            <td>{{ item.created_at|date:"d/m/Y" }}</td>
+                            <td>{{ item.updated_at|date:"d/m/Y" }}</td>
                             <td>
-                                <a href="#" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a>
+                                <a href="{% url 'inv:category_update' item.id %}" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a>
                                 <a href="#" class="btn btn-danger btn-circle" role="button"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
@@ -56,6 +56,11 @@
         </div>
     </div>
 {% endblock %}
-
 {% block js_page %}
+<script>
+// Tu script personalizado aquí
+$(document).ready(function (){
+    $('.table').DataTable();
+});
+</script>
 {% endblock %}
