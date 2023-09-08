@@ -37,3 +37,10 @@ class CategoryUpdate(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         form.instance.update_user = self.request.user
         return super().form_valid(form)
+
+
+class CategoryDelete(LoginRequiredMixin, generic.DeleteView):
+    model = Category
+    template_name = "inv/category_delete.html"
+    context_object_name = "obj"
+    success_url = reverse_lazy("inv:category")
