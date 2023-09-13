@@ -4,7 +4,7 @@
     <div class="card shadow mb-4">
         <!-- Card Header - Dropdown -->
         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">Categorias</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Productos</h6>
             <div class="dropdown no-arrow">
                 <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
@@ -13,8 +13,8 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                      aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Acciones</div>
-                    <a class="dropdown-item" href="{% url 'inv:category_create' %}">
-                        <i class="far fa-calendar-plus"></i> Nueva
+                    <a class="dropdown-item" onclick="return abrir_modal('{% url 'inv:product_create' %}')" href="#">
+                        <i class="far fa-calendar-plus"></i> Nuevo
                     </a>
                     <a class="dropdown-item" href="#">Another action</a>
                     <div class="dropdown-divider"></div>
@@ -32,8 +32,10 @@
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Estado</th>
-                    <th>Fecha de creacion</th>
-                    <th>Fecha de actualizacion</th>
+                    <th>Creacion</th>
+                    <th>Actualizacion</th>
+                    <th>Precio</th>
+                    <th>Categoria</th>
                     <th class="all">Acciones</th>
                 </thead>
                 <tbody>
@@ -44,9 +46,11 @@
                             <td>{{ item.state|yesno:"Activo,Inactivo" }}</td>
                             <td>{{ item.created_at|date:"d/m/Y" }}</td>
                             <td>{{ item.updated_at|date:"d/m/Y" }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.category }}</td>
                             <td>
-                                <a href="{% url 'inv:category_update' item.id %}" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a>
-                                <a href="{% url 'inv:category_delete' item.id %}" class="btn btn-danger btn-circle" role="button"><i class="far fa-trash-alt"></i></a>
+                                <a onclick="return abrir_modal('{% url 'inv:product_update' item.id %}')" href="#" class="btn btn-warning btn-circle" role="button"><i class="far fa-edit"></i></a>
+                                <a onclick="return abrir_modal('{% url 'inv:product_delete' item.id %}')" href="#" class="btn btn-danger btn-circle" role="button"><i class="far fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     {% endfor %}
