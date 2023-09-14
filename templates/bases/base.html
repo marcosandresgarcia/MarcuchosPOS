@@ -22,7 +22,10 @@
     <link href="{% static 'base/css/sb-admin-2.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this page-->
-    <link  src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <link  href="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+    <!-- Jquery confirm -->
+    <link  href="{% static 'base/vendor/jquery-confirm/jquery-confirm.min.css' %}" rel="stylesheet">
 
 </head>
 
@@ -447,9 +450,7 @@
     <script src="{% static 'base/vendor/datatables/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
-    {% block js_page %}
-
-    {% endblock js_page %}
+     <script src="{% static 'base/vendor/jquery-confirm/jquery-confirm.min.js' %}"></script>
 
     {% block control_modal %}
     <script>
@@ -469,8 +470,38 @@
             $('#popup').modal('hide');
             return false;
         }
+
+        function mensaje(msg,color='green')
+        {
+          if (color=="success")
+          {
+            color="green";
+          }
+          if (color=="error")
+          {
+            color="red";
+          }
+
+
+          $.alert({
+            title:'',
+            theme:'material',
+            type:color,
+            content:msg
+          });
+        }
+
+        {% if messages %}
+          {% for message in messages %}
+            console.log("{{ message.tags }}");
+            mensaje("{{ message }}","{{ message.tags }}");
+          {% endfor %}
+        {% endif %}
     </script>
     {% endblock %}
+    {% block js_page %}
+
+    {% endblock js_page %}
 </body>
 
 {% block login %}

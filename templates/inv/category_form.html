@@ -28,7 +28,9 @@
                                 <div class="input-group">
                                     <label for="id_status">Estado</label>
                                     <input type="checkbox" name="state" class="form-control" id="id_state"
-                                           {% if obj %} checked {% endif %}>
+                                           {% if obj %}
+                                               {% if obj.state %} checked {% endif %}
+                                           {% else %} checked {% endif %}>
                                 </div>
                             </div>
 {#                            {{ form.as_p }}#}
