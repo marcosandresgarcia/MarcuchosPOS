@@ -6,9 +6,10 @@ from django.views import generic
 from inv.forms import CategoryForm, ProductForm
 from inv.models import Category, Product
 from django.contrib.messages.views import SuccessMessageMixin
+from bases.views import UnauthorizedView
 
 
-class Categoryview(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class Categoryview(LoginRequiredMixin, UnauthorizedView, generic.ListView):
     permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category.html"
@@ -16,7 +17,7 @@ class Categoryview(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView
     login_url = "bases:login"
 
 
-class CategoryCreate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class CategoryCreate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.CreateView):
     permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_form.html"
@@ -31,7 +32,7 @@ class CategoryCreate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequired
         return super().form_valid(form)
 
 
-class CategoryUpdate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class CategoryUpdate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.UpdateView):
     permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_form.html"
@@ -46,7 +47,7 @@ class CategoryUpdate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequired
         return super().form_valid(form)
 
 
-class CategoryDelete(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class CategoryDelete(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.DeleteView):
     permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_delete.html"
@@ -55,7 +56,7 @@ class CategoryDelete(SuccessMessageMixin, LoginRequiredMixin, PermissionRequired
     success_message = "Categoria Eliminada Satisfactoriamente"
 
 
-class ProductView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+class ProductView(LoginRequiredMixin, UnauthorizedView, generic.ListView):
     permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products.html"
@@ -63,7 +64,7 @@ class ProductView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView)
     login_url = "bases:login"
 
 
-class ProductCreate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+class ProductCreate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.CreateView):
     permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_form.html"
@@ -83,7 +84,7 @@ class ProductCreate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredM
         return context
 
 
-class ProductUpdate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+class ProductUpdate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.UpdateView):
     permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_form.html"
@@ -105,7 +106,7 @@ class ProductUpdate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredM
         return context
 
 
-class ProductDelete(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+class ProductDelete(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.DeleteView):
     permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_delete.html"
