@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -9,22 +8,22 @@ from django.contrib.messages.views import SuccessMessageMixin
 from bases.views import UnauthorizedView
 
 
-class Categoryview(LoginRequiredMixin, UnauthorizedView, generic.ListView):
+class Categoryview(UnauthorizedView, generic.ListView):
     permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category.html"
     context_object_name = "obj"
-    login_url = "bases:login"
 
 
-class CategoryCreate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.CreateView):
+
+class CategoryCreate(SuccessMessageMixin, UnauthorizedView, generic.CreateView):
     permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_form.html"
     context_object_name = "obj"
     form_class = CategoryForm
     success_url = reverse_lazy("inv:category")
-    login_url = "bases:login"
+
     success_message = "Categoria Creada Satisfactoriamente"
 
     def form_valid(self, form):
@@ -32,14 +31,13 @@ class CategoryCreate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, 
         return super().form_valid(form)
 
 
-class CategoryUpdate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.UpdateView):
+class CategoryUpdate(SuccessMessageMixin, UnauthorizedView, generic.UpdateView):
     permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_form.html"
     context_object_name = "obj"
     form_class = CategoryForm
     success_url = reverse_lazy("inv:category")
-    login_url = "bases:login"
     success_message = "Categoria Actualizada Satisfactoriamente"
 
     def form_valid(self, form):
@@ -47,7 +45,7 @@ class CategoryUpdate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, 
         return super().form_valid(form)
 
 
-class CategoryDelete(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.DeleteView):
+class CategoryDelete(SuccessMessageMixin, UnauthorizedView, generic.DeleteView):
     permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_delete.html"
@@ -56,22 +54,20 @@ class CategoryDelete(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, 
     success_message = "Categoria Eliminada Satisfactoriamente"
 
 
-class ProductView(LoginRequiredMixin, UnauthorizedView, generic.ListView):
+class ProductView(UnauthorizedView, generic.ListView):
     permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products.html"
     context_object_name = "obj"
-    login_url = "bases:login"
 
 
-class ProductCreate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.CreateView):
+class ProductCreate(SuccessMessageMixin, UnauthorizedView, generic.CreateView):
     permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_form.html"
     context_object_name = "obj"
     form_class = ProductForm
     success_url = reverse_lazy("inv:product")
-    login_url = "bases:login"
     success_message = "Producto Creado Satisfactoriamente"
 
     def form_valid(self, form):
@@ -84,14 +80,13 @@ class ProductCreate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, g
         return context
 
 
-class ProductUpdate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.UpdateView):
+class ProductUpdate(SuccessMessageMixin, UnauthorizedView, generic.UpdateView):
     permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_form.html"
     context_object_name = "obj"
     form_class = ProductForm
     success_url = reverse_lazy("inv:product")
-    login_url = "bases:login"
     success_message = "Producto Actualizado Satisfactoriamente"
 
     def form_valid(self, form):
@@ -106,7 +101,7 @@ class ProductUpdate(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, g
         return context
 
 
-class ProductDelete(SuccessMessageMixin, LoginRequiredMixin, UnauthorizedView, generic.DeleteView):
+class ProductDelete(SuccessMessageMixin, UnauthorizedView, generic.DeleteView):
     permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_delete.html"
