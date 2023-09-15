@@ -74,8 +74,12 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                        {% if perms.inv.view_category %}
                         <a class="collapse-item" href="{% url 'inv:category' %}">Categorias</a>
+                        {% endif %}
+                        {% if perms.inv.view_product %}
                         <a class="collapse-item" href="{% url 'inv:product' %}">Productos</a>
+                        {% endif %}
                     </div>
                 </div>
             </li>

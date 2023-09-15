@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -8,14 +8,16 @@ from inv.models import Category, Product
 from django.contrib.messages.views import SuccessMessageMixin
 
 
-class Categoryview(LoginRequiredMixin, generic.ListView):
+class Categoryview(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+    permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category.html"
     context_object_name = "obj"
     login_url = "bases:login"
 
 
-class CategoryCreate(SuccessMessageMixin, LoginRequiredMixin, generic.CreateView):
+class CategoryCreate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_form.html"
     context_object_name = "obj"
@@ -29,7 +31,8 @@ class CategoryCreate(SuccessMessageMixin, LoginRequiredMixin, generic.CreateView
         return super().form_valid(form)
 
 
-class CategoryUpdate(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView):
+class CategoryUpdate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_form.html"
     context_object_name = "obj"
@@ -43,7 +46,8 @@ class CategoryUpdate(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView
         return super().form_valid(form)
 
 
-class CategoryDelete(SuccessMessageMixin, LoginRequiredMixin, generic.DeleteView):
+class CategoryDelete(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "inv.view_category"
     model = Category
     template_name = "inv/category_delete.html"
     context_object_name = "obj"
@@ -51,14 +55,16 @@ class CategoryDelete(SuccessMessageMixin, LoginRequiredMixin, generic.DeleteView
     success_message = "Categoria Eliminada Satisfactoriamente"
 
 
-class ProductView(LoginRequiredMixin, generic.ListView):
+class ProductView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
+    permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products.html"
     context_object_name = "obj"
     login_url = "bases:login"
 
 
-class ProductCreate(SuccessMessageMixin, LoginRequiredMixin, generic.CreateView):
+class ProductCreate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.CreateView):
+    permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_form.html"
     context_object_name = "obj"
@@ -77,7 +83,8 @@ class ProductCreate(SuccessMessageMixin, LoginRequiredMixin, generic.CreateView)
         return context
 
 
-class ProductUpdate(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView):
+class ProductUpdate(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.UpdateView):
+    permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_form.html"
     context_object_name = "obj"
@@ -98,7 +105,8 @@ class ProductUpdate(SuccessMessageMixin, LoginRequiredMixin, generic.UpdateView)
         return context
 
 
-class ProductDelete(SuccessMessageMixin, LoginRequiredMixin, generic.DeleteView):
+class ProductDelete(SuccessMessageMixin, LoginRequiredMixin, PermissionRequiredMixin, generic.DeleteView):
+    permission_required = "inv.view_product"
     model = Product
     template_name = "inv/products_delete.html"
     context_object_name = "obj"
