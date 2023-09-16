@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
@@ -24,3 +25,31 @@ class Home(LoginRequiredMixin, generic.TemplateView):
 class HomeUnauthorizedView(LoginRequiredMixin, generic.TemplateView):
     login_url = "bases:login"
     template_name = "bases/unauthorized.html"
+
+
+class BaseCreateView(SuccessMessageMixin, UnauthorizedView, generic.CreateView):
+    context_object_name = 'obj'
+    success_message = "Registro Creado Satisfactoriamente"
+
+    def form_valid(self, form):
+        form.instance.creation_user = self.request.user
+        return super().form_valid(form)
+
+
+class BaseUpdateView(SuccessMessageMixin, UnauthorizedView, generic.UpdateView):
+    context_object_name = 'obj'
+    success_message = "Registro Actualizado Satisfactoriamente"
+
+    def form_valid(self, form):
+        form.instance.update_user = self.request.user
+        return super().form_valid(form)
+
+
+class BaseDeleteView(SuccessMessageMixin, UnauthorizedView, generic.DeleteView):
+    context_object_name = 'obj'
+    success_message = "Registro Eliminado Satisfactoriamente"
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return HttpResponseRedirect(self.get_success_url())

@@ -80,6 +80,9 @@
                         {% if perms.inv.view_product %}
                         <a class="collapse-item" href="{% url 'inv:product' %}">Productos</a>
                         {% endif %}
+                        {% if perms.sales.view_clients %}
+                        <a class="collapse-item" href="{% url 'sales:clients' %}">Clientes</a>
+                        {% endif %}
                     </div>
                 </div>
             </li>
@@ -379,13 +382,13 @@
             {% block footer %}
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
+{#            <footer class="sticky-footer bg-white">#}
+{#                <div class="container my-auto">#}
+{#                    <div class="copyright text-center my-auto">#}
+{#                        <span>Copyright &copy; Your Website 2020</span>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </footer>#}
             <!-- End of Footer -->
 
             {% endblock footer %}
